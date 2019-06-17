@@ -65,14 +65,22 @@ var createPhotos = function (amountOfPhotos) { // Функция генерац�
 
 photos = reshuffleArray(createPhotos(PHOTOS_AMOUNT)); // Создаем фотографии
 
-for (var i = 0; i < PHOTOS_AMOUNT; i++) { // Цикл для добавления фотографий(объектов) в DOM дерево.
-  var photoElement = userPictureTemplate.cloneNode(true);
+var addPhotos = function (photos) { //Функция для добавления
 
-  photoElement.querySelector('.picture__img').src = photos[i].url; // Меняем ссылку
-  photoElement.querySelector('.picture__likes').textContent = photos[i].likes; // Записываем лайки
-  photoElement.querySelector('.picture__comments').textContent = photos[i].comment.length; // Записываем кол-во коментарий на фотографии
+  var photoElement = userPictureTemplate.cloneNode(true)
+
+  photoElement.querySelector('.picture__img').src = photos.url; // Меняем ссылку
+  photoElement.querySelector('.picture__likes').textContent = photos.likes; // Записываем лайки
+  photoElement.querySelector('.picture__comments').textContent = photos.comment.length; // Записываем кол-во коментарий на фотографии
 
   fragment.appendChild(photoElement); // Добавляем полученный блок в фрагменты
+
+  return photoElement;
 }
 
+  for (var i = 0; i < PHOTOS_AMOUNT; i++) { // Цикл для добавления фотографий(объектов) в DOM дерево.
+    addPhotos(photos[i]);
+  }
+
 photoListElement.appendChild(fragment); // Из фрагмента переносим в DOM
+
