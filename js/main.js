@@ -9,7 +9,6 @@ var NUMBER_OF_COMMENTS_MIN = 1; // Минимальное количество �
 var NUMBER_OF_COMMENTS_MAX = 5; // Максимальное количество комментариев к фото
 var NUMBER_OF_LIKES_MIN = 15; // Минимальное количество лайков к фото
 var NUMBER_OF_LIKES_MAX = 200; // Максимальное количество лайков к фото
-var photos = []; // Массив объектов с ссылкой, лайками и комментами к фотографиии
 
 var photoListElement = document.querySelector('.pictures'); // Находим тег, внутрь которого будем вставлять данные из template'а
 var userPictureTemplate = document.querySelector('#picture').content.querySelector('.picture'); // Находим нужный шаблон
@@ -63,24 +62,26 @@ var createPhotos = function (amountOfPhotos) { // Функция генерац�
   return array; // Наш итоговый массив объектов
 };
 
-photos = reshuffleArray(createPhotos(PHOTOS_AMOUNT)); // Создаем фотографии
+var addPhotos = function (photos) { // Функция для добавления
 
-var addPhotos = function (photos) { //Функция для добавления
-
-  var photoElement = userPictureTemplate.cloneNode(true)
+  var photoElement = userPictureTemplate.cloneNode(true);
 
   photoElement.querySelector('.picture__img').src = photos.url; // Меняем ссылку
   photoElement.querySelector('.picture__likes').textContent = photos.likes; // Записываем лайки
   photoElement.querySelector('.picture__comments').textContent = photos.comment.length; // Записываем кол-во коментарий на фотографии
 
-  fragment.appendChild(photoElement); // Добавляем полученный блок в фрагменты
-
   return photoElement;
+};
+
+var photos = []; // Массив объектов с ссылкой, лайками и комментами к фотографиии
+
+photos = reshuffleArray(createPhotos(PHOTOS_AMOUNT)); // Создаем фотографии
+
+for (var i = 0; i < PHOTOS_AMOUNT; i++) { // Цикл для добавления фотографий(объектов) в DOM дерево.
+  addPhotos(photos[i]);
+
+  fragment.appendChild(addPhotos(photos[i])); // Добавляем полученный блок в фрагменты
+
 }
 
-  for (var i = 0; i < PHOTOS_AMOUNT; i++) { // Цикл для добавления фотографий(объектов) в DOM дерево.
-    addPhotos(photos[i]);
-  }
-
 photoListElement.appendChild(fragment); // Из фрагмента переносим в DOM
-
