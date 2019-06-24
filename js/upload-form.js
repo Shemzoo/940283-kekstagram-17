@@ -49,7 +49,6 @@ var showPhotoEditForm = function (element) {
   showElement(element);
   document.addEventListener('keydown', onPhotoEditFormEscPress);
   applyPicturefilter(noEffectImage);
-  photoSizeValue.value = '100%';
   photoPreviewImage.style = 'transform: scale(1)';
 };
 
@@ -73,7 +72,7 @@ var changeSizePhotoPreview = function (button) {
   } else if ((button.target.classList.contains('scale__control--smaller') && photosize > PHOTO_SIZE_MIN)) {
     photosize -= PHOTO_SIZE_CHANGE_STEP;
   }
-  photoSizeValue.value = '' + photosize + '%';
+  photoSizeValue.value = '' + photosize;
   photoPreviewImage.style = 'transform: scale(' + (photosize / 100) + ')';
 };
 
@@ -93,8 +92,8 @@ var applyPicturefilter = function (element) {
 };
 
 var addEffectLevelValue = function (percent, effect) {
-  imageEffectPin.style = 'left:' + percent + '%';
-  imageEffectDepth.style = 'width:' + percent + '%';
+  imageEffectPin.style.left = percent + '%';
+  imageEffectDepth.style.width = percent + '%';
   var valuePercent = (effect[2] - effect[1]) / PHOTO_EFFECT_VOLUME_DEFAULT * percent;
   var valueInput = effect[1] + valuePercent;
   imageEffectLevelValue.textContent = valueInput.toFixed(2);
