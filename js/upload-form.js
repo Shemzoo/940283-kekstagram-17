@@ -4,7 +4,7 @@ var PHOTO_SIZE_MAX = 100;
 var PHOTO_SIZE_MIN = 25;
 var PHOTO_SIZE_CHANGE_STEP = 25;
 var PHOTO_EFFECT_VOLUME_DEFAULT = 100;
-var MAX_PERCENT = 100;
+var PERCENT_MAX = 100;
 
 var uploadFile = document.querySelector('#upload-file');
 var photoEditForm = document.querySelector('.img-upload__overlay');
@@ -101,7 +101,7 @@ var addEffectLevelValue = function (percent, effect) {
 };
 
 var getEffectValue = function (percent) {
-  if (percent >= 0 && percent <= MAX_PERCENT) {
+  if (percent >= 0 && percent <= PERCENT_MAX) {
     addEffectLevelValue(percent, effects[value]);
   }
 };
