@@ -1,7 +1,6 @@
 'use strict';
 
-(function () {
-  var PHOTOS_AMOUNT = 25; // Количество фотографий
+window.data = (function () {
   var AUTHOR_NAMES = ['Иван', 'Владимир', 'Мария', 'Глеб', 'Виктор', 'Юлия', 'Денис', 'Антон']; // Имена авторов
   var COMMENTS = [
     'Всё отлично!',
@@ -17,10 +16,6 @@
   var NUMBER_OF_COMMENTS_MAX = 5; // Максимальное количество комментариев к фото
   var NUMBER_OF_LIKES_MIN = 15; // Минимальное количество лайков к фото
   var NUMBER_OF_LIKES_MAX = 200; // Максимальное количество лайков к фото
-
-  var photoListElement = document.querySelector('.pictures'); // Находим тег, внутрь которого будем вставлять данные из template'а
-  var userPictureTemplate = document.querySelector('#picture').content.querySelector('.picture'); // Находим нужный шаблон
-  var fragment = document.createDocumentFragment(); // Создаем documentFragment
 
   var getRandomNumber = function (min, max) { // Функция для получения случайного целого числа в диапазоне от мин. до макс., включая эти значения
     return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -43,41 +38,19 @@
     return array;
   };
 
-  var createPhotos = function (amountOfPhotos) { // Функция генерации фотографии
-    var array = []; // Промежуточный массив
-
-    for (var i = 1; i <= amountOfPhotos; i++) {
-      var numberOfComments = getRandomNumber(NUMBER_OF_COMMENTS_MIN, NUMBER_OF_COMMENTS_MAX); // Получаем число комментов к фотографии
-      var photosInfo = { // Объект, в котором хранятся данные о фотографии (путь, лайки и комменты)
-        url: 'photos/' + i + '.jpg', // Путь к фотке
-        likes: getRandomNumber(NUMBER_OF_LIKES_MIN, NUMBER_OF_LIKES_MAX), // Cлучайное количество лайков
-        comment: createComment(numberOfComments) // Пустой массив для записи комментов
-      };
-      array.push(photosInfo); // Добаляем сгенерированный объект в массив
+  return {
+    createPhotos: function (amountOfPhotos) { // Функция генерации фотографии
+      var array = []; // Промежуточный массив
+      for (var i = 1; i <= amountOfPhotos; i++) {
+        var numberOfComments = getRandomNumber(NUMBER_OF_COMMENTS_MIN, NUMBER_OF_COMMENTS_MAX); // Получаем число комментов к фотографии
+        var photosInfo = { // Объект, в котором хранятся данные о фотографии (путь, лайки и комменты)
+          url: 'photos/' + i + '.jpg', // Путь к фотке
+          likes: getRandomNumber(NUMBER_OF_LIKES_MIN, NUMBER_OF_LIKES_MAX), // Cлучайное количество лайков
+          comment: createComment(numberOfComments) // Пустой массив для записи комментов
+        };
+        array.push(photosInfo); // Добаляем сгенерированный объект в массив
+      }
+      return array; // Наш итоговый массив объектов
     }
-    return array; // Наш итоговый массив объектов
   };
-
-  var addPhotos = function (photos) { // Функция для добавления
-
-    var photoElement = userPictureTemplate.cloneNode(true);
-
-    photoElement.querySelector('.picture__img').src = photos.url; // Меняем ссылку
-    photoElement.querySelector('.picture__likes').textContent = photos.likes; // Записываем лайки
-    photoElement.querySelector('.picture__comments').textContent = photos.comment.length; // Записываем кол-во коментарий на фотографии
-
-    return photoElement;
-  };
-
-  var photos = []; // Массив объектов с ссылкой, лайками и комментами к фотографиии
-
-  photos = window.utils.reshuffleArray(createPhotos(PHOTOS_AMOUNT)); // Создаем фотографии
-
-  for (var i = 0; i < PHOTOS_AMOUNT; i++) { // Цикл для добавления фотографий(объектов) в DOM дерево.
-    fragment.appendChild(addPhotos(photos[i])); // Добавляем полученный блок в фрагменты
-
-  }
-
-  photoListElement.appendChild(fragment); // Из фрагмента переносим в DOM
-
 })();

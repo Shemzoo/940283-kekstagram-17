@@ -110,33 +110,6 @@
     applyPicturefilter(evt.target);
   });
 
-  imageEffectPin.addEventListener('mousedown', function (evt) {
-    evt.preventDefault();
-
-    var startCoords = evt.clientX;
-
-    var onMouseMove = function (moveEvt) {
-      moveEvt.preventDefault();
-
-      var lineWidth = imageEffectLine.clientWidth;
-      var shift = startCoords - moveEvt.clientX;
-
-      startCoords = moveEvt.clientX;
-
-      getEffectValue((imageEffectPin.offsetLeft - shift) * 100 / lineWidth);
-    };
-
-    var onMouseUp = function (upEvt) {
-      upEvt.preventDefault();
-
-      document.removeEventListener('mousemove', onMouseMove);
-      document.removeEventListener('mouseup', onMouseUp);
-    };
-
-    document.addEventListener('mousemove', onMouseMove);
-    document.addEventListener('mouseup', onMouseUp);
-  });
+  window.utils.slider(imageEffectPin, imageEffectLine, getEffectValue);
 
 })();
-
-
