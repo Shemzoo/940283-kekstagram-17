@@ -2,16 +2,16 @@
 
 (function () {
 
-  function renderPictures(pictures) {
+  var renderPictures = function (pictures) {
 
     var pictureContainer = document.querySelector('.pictures');
     var fragment = createPictures(pictures);
 
     pictureContainer.appendChild(fragment);
 
-  }
+  };
 
-  function createPictures(pictures) {
+  var createPictures = function (pictures) {
 
     var pictureTemplate = document.querySelector('#picture').content.querySelector('.picture');
 
@@ -23,9 +23,9 @@
 
     return fragment;
 
-  }
+  };
 
-  function generateFragment(fragment, template, picture) {
+  var generateFragment = function (fragment, template, picture) {
 
     var pictureClone = template.cloneNode(true);
     var img = pictureClone.querySelector('.picture__img');
@@ -41,18 +41,18 @@
     fragment.appendChild(pictureClone);
 
     return fragment;
-  }
+  };
 
-  function successHandler(pictures) {
+  var successHandler = function (pictures) {
     renderPictures(window.utils.reshuffleArray(pictures));
-  }
+  };
 
-  function errorHandler(errorMessage) {
+  var errorHandler = function (errorMessage) {
     var messageContainer = document.createElement('div');
     messageContainer.textContent = errorMessage;
     messageContainer.classList.add('error-message');
     document.body.appendChild(messageContainer);
-  }
+  };
 
   window.backend.getData(successHandler, errorHandler);
 
