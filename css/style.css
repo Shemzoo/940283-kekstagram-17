@@ -1255,6 +1255,22 @@ main {
   transform: translateX(-50%);
 }
 
+.error-message {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  font-family: "Open Sans", "Arial", sans-serif;
+  font-size: 18px;
+  font-weight: bold;
+  text-align: center;
+  padding: 10px 20px;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 600px;
+  border: 1px solid #ffffff;
+  background-color: red;
+  color: #ffffff;
+}
 
 /**
  * Экраны ошибки и успеха загрузки изображения
@@ -1401,6 +1417,7 @@ main {
       -ms-transform: translateX(-50%);
           transform: translateX(-50%);
 }
+
 
 
 /* Адаптивности чуток

@@ -1,32 +1,59 @@
 'use strict';
 
 (function () {
-  var PHOTOS_AMOUNT = 25; // Количество фотографий
 
-  var photoListElement = document.querySelector('.pictures'); // Находим тег, внутрь которого будем вставлять данные из template'а
-  var userPictureTemplate = document.querySelector('#picture').content.querySelector('.picture'); // Находим нужный шаблон
-  var fragment = document.createDocumentFragment(); // Создаем documentFragment
+  function renderPictures(pictures) {
 
-  var addPhotos = function (photos) { // Функция для добавления
+    var pictureContainer = document.querySelector('.pictures');
+    var fragment = createPictures(pictures);
 
-    var photoElement = userPictureTemplate.cloneNode(true);
-
-    photoElement.querySelector('.picture__img').src = photos.url; // Меняем ссылку
-    photoElement.querySelector('.picture__likes').textContent = photos.likes; // Записываем лайки
-    photoElement.querySelector('.picture__comments').textContent = photos.comment.length; // Записываем кол-во коментарий на фотографии
-
-    return photoElement;
-  };
-
-  var photos = []; // Массив объектов с ссылкой, лайками и комментами к фотографиии
-
-  photos = window.utils.reshuffleArray(window.data.createPhotos(PHOTOS_AMOUNT)); // Создаем фотографии
-
-  for (var i = 0; i < PHOTOS_AMOUNT; i++) { // Цикл для добавления фотографий(объектов) в DOM дерево.
-    fragment.appendChild(addPhotos(photos[i])); // Добавляем полученный блок в фрагменты
+    pictureContainer.appendChild(fragment);
 
   }
 
-  photoListElement.appendChild(fragment); // Из фрагмента переносим в DOM
+  function createPictures(pictures) {
+
+    var pictureTemplate = document.querySelector('#picture').content.querySelector('.picture');
+
+    var fragment = document.createDocumentFragment();
+
+    for (var i = 0; i < pictures.length; i++) {
+      fragment = generateFragment(fragment, pictureTemplate, pictures[i]);
+    }
+
+    return fragment;
+
+  }
+
+  function generateFragment(fragment, template, picture) {
+
+    var pictureClone = template.cloneNode(true);
+    var img = pictureClone.querySelector('.picture__img');
+    var likes = pictureClone.querySelector('.picture__likes');
+    var comments = pictureClone.querySelector('.picture__comments');
+
+    img.src = picture.url;
+
+    likes.textContent = picture.likes;
+
+    comments.textContent = String(picture.comments.length);
+
+    fragment.appendChild(pictureClone);
+
+    return fragment;
+  }
+
+  function successHandler(pictures) {
+    renderPictures(window.utils.reshuffleArray(pictures));
+  }
+
+  function errorHandler(errorMessage) {
+    var messageContainer = document.createElement('div');
+    messageContainer.textContent = errorMessage;
+    messageContainer.classList.add('error-message');
+    document.body.appendChild(messageContainer);
+  }
+
+  window.backend.getData(successHandler, errorHandler);
 
 })();
