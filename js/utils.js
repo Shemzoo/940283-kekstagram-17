@@ -1,6 +1,7 @@
 'use strict';
 
 window.utils = (function () {
+
   return {
     showElement: function (element) {
       if (element.classList.contains('hidden')) {
