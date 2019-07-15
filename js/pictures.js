@@ -48,7 +48,8 @@
   };
 
   var successHandler = function (pictures) {
-    renderPictures(window.filter(pictures));
+    renderPictures(pictures);
+    window.filter(pictures);
   };
 
   var errorHandler = function (errorMessage) {
