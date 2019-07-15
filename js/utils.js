@@ -15,24 +15,12 @@ window.utils = (function () {
       }
     },
 
-    reshuffleArray: function (array) { // Для избежания дублирования фотографий
-      var j;
-      var temp;
-      for (var i = array.length - 1; i > 0; i--) { // Перемешиваем массив
-        j = Math.floor(Math.random() * (i + 1));
-        temp = array[j];
-        array[j] = array[i];
-        array[i] = temp;
-      }
-      return array;
-    },
-
     slider: function (pin, track, callback) {
       pin.addEventListener('mousedown', function (evt) {
         evt.preventDefault();
         var startCoords = evt.clientX;
 
-        var onMouseMove = function (moveEvt) {
+        var mouseMoveHandler = function (moveEvt) {
           moveEvt.preventDefault();
 
           var lineWidth = track.clientWidth;
@@ -42,15 +30,15 @@ window.utils = (function () {
           callback((pin.offsetLeft - shift) * 100 / lineWidth);
         };
 
-        var onMouseUp = function (upEvt) {
+        var mouseUpHandler = function (upEvt) {
           upEvt.preventDefault();
 
-          document.removeEventListener('mousemove', onMouseMove);
-          document.removeEventListener('mouseup', onMouseUp);
+          document.removeEventListener('mousemove', mouseMoveHandler);
+          document.removeEventListener('mouseup', mouseUpHandler);
         };
 
-        document.addEventListener('mousemove', onMouseMove);
-        document.addEventListener('mouseup', onMouseUp);
+        document.addEventListener('mousemove', mouseMoveHandler);
+        document.addEventListener('mouseup', mouseUpHandler);
       });
     }
 

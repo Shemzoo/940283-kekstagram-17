@@ -38,18 +38,18 @@
   var showPhotoEditForm = function (element) {
     photosize = SCALE_VALUE_MAX;
     window.utils.showElement(element);
-    document.addEventListener('keydown', onPhotoEditFormEscPress);
+    document.addEventListener('keydown', photoEditFormEscPressHandler);
     applyPicturefilter(noEffectImage);
     photoPreviewImage.style = 'transform: scale(1)';
   };
 
   var hidePhotoEditForm = function (element) {
     window.utils.hideElement(element);
-    document.removeEventListener('keydown', onPhotoEditFormEscPress);
+    document.removeEventListener('keydown', photoEditFormEscPressHandler);
     uploadFile.value = '';
   };
 
-  var onPhotoEditFormEscPress = function (evt) {
+  var photoEditFormEscPressHandler = function (evt) {
     if (evt.keyCode === ESC_KEYCODE && evt.target !== comment) {
       hidePhotoEditForm(photoEditForm);
     }

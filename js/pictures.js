@@ -2,10 +2,15 @@
 
 (function () {
 
-  var renderPictures = function (pictures) {
+  var renderPictures = function (picturesData) {
 
     var pictureContainer = document.querySelector('.pictures');
-    var fragment = createPictures(pictures);
+    var pictures = pictureContainer.querySelectorAll('.picture');
+    var fragment = createPictures(picturesData);
+
+    pictures.forEach(function (picture) {
+      pictureContainer.removeChild(picture);
+    });
 
     pictureContainer.appendChild(fragment);
 
@@ -14,18 +19,17 @@
   var createPictures = function (pictures) {
 
     var pictureTemplate = document.querySelector('#picture').content.querySelector('.picture');
-
     var fragment = document.createDocumentFragment();
 
     for (var i = 0; i < pictures.length; i++) {
-      fragment = generateFragment(fragment, pictureTemplate, pictures[i]);
+      fragment = renderPicture(fragment, pictureTemplate, pictures[i]);
     }
 
     return fragment;
 
   };
 
-  var generateFragment = function (fragment, template, picture) {
+  var renderPicture = function (fragment, template, picture) {
 
     var pictureClone = template.cloneNode(true);
     var img = pictureClone.querySelector('.picture__img');
@@ -44,7 +48,8 @@
   };
 
   var successHandler = function (pictures) {
-    renderPictures(window.utils.reshuffleArray(pictures));
+    renderPictures(pictures);
+    window.filter(pictures);
   };
 
   var errorHandler = function (errorMessage) {
@@ -56,4 +61,5 @@
 
   window.backend.getData(successHandler, errorHandler);
 
+  window.renderPictures = renderPictures;
 })();
