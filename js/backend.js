@@ -7,11 +7,13 @@ window.backend = (function () {
 
       var URL = 'https://js.dump.academy/kekstagram/data';
       var xhr = new XMLHttpRequest();
+      var timeout = 10000;
+      var status = 200;
 
       xhr.responseType = 'json';
 
       xhr.addEventListener('load', function () {
-        if (xhr.status === 200) {
+        if (xhr.status === status) {
           onSuccess(xhr.response);
         } else {
           onError('Статус ответа: ' + xhr.status + ' ' + xhr.statusText);
@@ -26,10 +28,11 @@ window.backend = (function () {
         onError('Запрос не успел выполниться за ' + xhr.timeout + 'мс');
       });
 
-      xhr.timeout = 10000;
+      xhr.timeout = timeout;
 
       xhr.open('GET', URL);
       xhr.send();
+
     }
 
   };
