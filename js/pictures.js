@@ -5,10 +5,10 @@
   var renderPictures = function (picturesData) {
 
     var pictureContainer = document.querySelector('.pictures');
-    var pictures = pictureContainer.querySelectorAll('.picture');
+    var picturesWrapper = pictureContainer.querySelectorAll('.picture');
     var fragment = createPictures(picturesData);
 
-    pictures.forEach(function (picture) {
+    picturesWrapper.forEach(function (picture) {
       pictureContainer.removeChild(picture);
     });
 
@@ -50,7 +50,18 @@
   var successHandler = function (pictures) {
     renderPictures(pictures);
     window.filter(pictures);
+    addHandlerToGallery(pictures);
   };
+
+  function addHandlerToGallery(pictureData) {
+    var pictures = document.querySelectorAll('.picture');
+    pictures.forEach(function (picture, i) {
+      picture.addEventListener('click', function () {
+        window.renderFullScreenPhoto(pictureData[i]);
+      });
+    });
+  }
+
 
   var errorHandler = function (errorMessage) {
     var messageContainer = document.createElement('div');

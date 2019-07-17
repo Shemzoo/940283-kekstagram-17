@@ -32,24 +32,23 @@
     heat: ['brightness', 1, 3, '']
   };
   var value = '';
-
   var comment = document.querySelector('.text__description');
 
   var showPhotoEditForm = function (element) {
     photosize = SCALE_VALUE_MAX;
     window.utils.showElement(element);
-    document.addEventListener('keydown', photoEditFormEscPressHandler);
+    document.addEventListener('keydown', onPhotoEditFormEscPress);
     applyPicturefilter(noEffectImage);
     photoPreviewImage.style = 'transform: scale(1)';
   };
 
   var hidePhotoEditForm = function (element) {
     window.utils.hideElement(element);
-    document.removeEventListener('keydown', photoEditFormEscPressHandler);
+    document.removeEventListener('keydown', onPhotoEditFormEscPress);
     uploadFile.value = '';
   };
 
-  var photoEditFormEscPressHandler = function (evt) {
+  var onPhotoEditFormEscPress = function (evt) {
     if (evt.keyCode === ESC_KEYCODE && evt.target !== comment) {
       hidePhotoEditForm(photoEditForm);
     }
