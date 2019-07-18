@@ -11,9 +11,6 @@
   var commentTemplate = document.querySelector('#comment').content.querySelector('.social__comment');
   var commentsContainer = modalContainer.querySelector('.social__comments');
 
-  commentsCount.classList.add('visually-hidden');
-  commentsLoader.classList.add('visually-hidden');
-
   var renderPhoto = function (picture) {
     photo.src = picture.url;
     description.textContent = picture.description;
@@ -24,13 +21,7 @@
 
   var renderComments = function (commentsData) {
 
-    var comments = commentsContainer.querySelectorAll('.social__comment');
     var fragment = document.createDocumentFragment();
-
-
-    comments.forEach(function (comment) {
-      commentsContainer.removeChild(comment);
-    });
 
     commentsData.forEach(function (comment) {
       var commentClone = createComment(comment);
@@ -49,6 +40,27 @@
 
     return commentClone;
   };
+
+  function resetPhoto() {
+    var comments = commentsContainer.querySelectorAll('.social__comment');
+
+    photo.src = '';
+    description.textContent = '';
+    likes.textContent = '';
+
+    comments.forEach(function (comment) {
+      commentsContainer.removeChild(comment);
+    });
+  }
+
+  fullScreenModal.onClose = function () {
+    resetPhoto();
+  };
+
+  commentsCount.classList.add('visually-hidden');
+  commentsLoader.classList.add('visually-hidden');
+
+  resetPhoto();
 
   window.renderFullScreenPhoto = renderPhoto;
 })();

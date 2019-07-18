@@ -1,6 +1,8 @@
 'use strict';
 
 (function () {
+  var ESC_KEYCODE = 27;
+
   var scrollBar = {
     off: function () {
       document.body.style.width = document.body.clientWidth + 'px';
@@ -35,7 +37,7 @@
     };
 
     this.onModalEscPress = function (evt) {
-      if (evt.keyCode === 27) {
+      if (evt.keyCode === ESC_KEYCODE) {
         modal.close();
       }
     };
