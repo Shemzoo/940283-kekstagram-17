@@ -15,7 +15,7 @@
     }
   };
 
-  function Modal(classNameModal) {
+  var Modal = function (classNameModal) {
     var modal = this;
     var container = document.querySelector(classNameModal);
     var btnClose = container.querySelector('.cancel');
@@ -43,7 +43,7 @@
     };
 
     btnClose.addEventListener('click', modal.close);
-  }
+  };
 
   window.Modal = Modal;
 })();
