@@ -32,7 +32,9 @@
     heat: ['brightness', 1, 3, '']
   };
   var value = '';
+
   var comment = document.querySelector('.text__description');
+  var hashTags = document.querySelector('.text__hashtags');
 
   var showPhotoEditForm = function (element) {
     photosize = SCALE_VALUE_MAX;
@@ -49,7 +51,7 @@
   };
 
   var onPhotoEditFormEscPress = function (evt) {
-    if (evt.keyCode === ESC_KEYCODE && evt.target !== comment) {
+    if (evt.keyCode === ESC_KEYCODE && evt.target !== comment && evt.target !== hashTags) {
       hidePhotoEditForm(photoEditForm);
     }
   };
@@ -110,5 +112,49 @@
   });
 
   window.utils.slider(imageEffectPin, imageEffectLine, getEffectValue);
+
+  var addHashTagsValidation = function () {
+    var hashTagsData = hashTags.value.trim().split(/\s+/gi);
+    var message = '';
+
+    if (hashTagsData.length > 5) {
+      message = 'Нельзя указать больше пяти хэш-тегов';
+
+    } else {
+      for (var i = 0; i < hashTagsData.length; i++) {
+        message = hashtagValidation(hashTagsData, i);
+        if (message) {
+          break;
+        }
+      }
+    }
+
+    hashTags.setCustomValidity(message);
+
+  };
+
+  hashTags.addEventListener('input', function () {
+    addHashTagsValidation();
+  });
+
+  var hashtagValidation = function (hashTagsData, i) {
+    var message = '';
+    if (hashTagsData[i].charAt(0) !== '#') {
+      message = 'Хеш-теги должны начинаться с "#"';
+
+    } else if (hashTagsData[i].length === 1) {
+      message = 'Хеш-теги должны состоять хотя бы из одного символа';
+
+    } else if (hashTagsData[i].indexOf('#', 1) > 0) {
+      message = 'Хеш-теги должны разделяться пробелами';
+
+    } else if (hashTagsData.indexOf(hashTagsData[i], i + 1) > 0) {
+      message = 'Один и тот же хэш-тег не может быть использован дважды';
+
+    } else if (hashTagsData[i].length > 20) {
+      message = 'Максимальная длина одного хэш-тега 20 символов';
+    }
+    return message;
+  };
 
 })();
