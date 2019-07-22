@@ -41,7 +41,7 @@
     return commentClone;
   };
 
-  function resetPhoto() {
+  var resetPhoto = function () {
     var comments = commentsContainer.querySelectorAll('.social__comment');
 
     photo.src = '';
@@ -51,7 +51,7 @@
     comments.forEach(function (comment) {
       commentsContainer.removeChild(comment);
     });
-  }
+  };
 
   fullScreenModal.onClose = function () {
     resetPhoto();
