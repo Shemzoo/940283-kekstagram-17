@@ -22,7 +22,6 @@
   var imageUploadEffectsLevel = document.querySelector('.img-upload__effect-level');
   var form = document.querySelector('.img-upload__form');
   var mainContainer = document.querySelector('main');
-
   var imageEffectLevelValue = imageUploadEffectsLevel.querySelector('.effect-level__value');
   var imageEffectLine = imageUploadEffectsLevel.querySelector('.effect-level__line');
   var imageEffectPin = imageUploadEffectsLevel.querySelector('.effect-level__pin');
@@ -66,8 +65,8 @@
     } else if ((button.target.classList.contains('scale__control--smaller') && photosize > SCALE_VALUE_MIN)) {
       photosize -= SCALE_CHANGE_STEP;
     }
-    photoSizeValue.value = '' + photosize;
-    photoPreviewImage.style = 'transform: scale(' + (photosize / 100) + ')';
+    photoSizeValue.value = '' + photosize + '%';
+    photoPreview.style = 'transform: scale(' + (photosize / 100) + ')';
   };
 
   var applyPicturefilter = function (element) {
@@ -164,10 +163,17 @@
   var onSuccess = function () {
     hidePhotoEditForm(photoEditForm);
     showMessage('success');
+    resetForm();
   };
 
   var onError = function () {
     showMessage('error');
+    resetForm();
+  };
+
+  var resetForm = function () {
+    comment.form.reset();
+    hashTags.form.reset();
   };
 
   var showMessage = function (classNameMessage) {
