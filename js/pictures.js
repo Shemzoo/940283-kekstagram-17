@@ -44,7 +44,7 @@
     document.body.appendChild(messageContainer);
   };
 
-  window.backend.getData(successHandler, errorHandler);
+  window.getData.load(successHandler, errorHandler);
 
   window.renderPictures = renderPictures;
 })();
