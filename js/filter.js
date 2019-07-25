@@ -16,9 +16,9 @@
     var filterContainer = document.querySelector('.img-filters');
     var filterButtons = filterContainer.querySelectorAll('.img-filters__button');
     var activeClassButton = 'img-filters__button--active';
-    var timerId;
     var buttonChecked = filterButtons[0];
     var picturesData = data;
+    var timerId = 0;
 
     var showFilter = function () {
       filterContainer.classList.remove('img-filters--inactive');
@@ -36,7 +36,6 @@
     };
 
     var changeFilter = function (btn) {
-      var filterName = btn.id;
 
       filterButtons.forEach(function (btnItem) {
         btnItem.classList.remove(activeClassButton);
@@ -50,7 +49,7 @@
 
       timerId = setTimeout(function () {
         if (buttonChecked !== btn) {
-          applyFilter(filterName);
+          applyFilter(btn.id);
           buttonChecked = btn;
         }
       }, DELAY_TIME);

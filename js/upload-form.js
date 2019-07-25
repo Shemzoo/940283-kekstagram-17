@@ -44,7 +44,7 @@
     window.utils.showElement(element);
     document.addEventListener('keydown', onPhotoEditFormEscPress);
     applyPicturefilter(noEffectImage);
-    photoPreviewImage.style = 'transform: scale(1)';
+    photoPreview.style = 'transform: scale(1)';
   };
 
   var hidePhotoEditForm = function (element) {
@@ -72,16 +72,15 @@
 
   var applyPicturefilter = function (element) {
     value = element.value;
-    photoPreview.classList = 'img-upload__preview';
-    photoPreview.classList.add('effects__preview--' + value);
+    photoPreviewImage.classList = 'img-upload__preview';
+    photoPreviewImage.classList.add('effects__preview--' + value);
 
     if (value === 'none') {
       window.utils.hideElement(imageUploadEffectsLevel);
-      photoPreview.style = '';
+      photoPreviewImage.style = '';
     } else {
       window.utils.showElement(imageUploadEffectsLevel);
       addEffectLevelValue(PHOTO_EFFECT_VOLUME_DEFAULT, effects[value]);
-      photoPreview.style = 'transform: scale(' + (photosize / 100) + ')';
     }
   };
 
@@ -91,7 +90,7 @@
     var valuePercent = (effect[2] - effect[1]) / PHOTO_EFFECT_VOLUME_DEFAULT * percent;
     var valueInput = effect[1] + valuePercent;
     imageEffectLevelValue.textContent = valueInput.toFixed(2);
-    photoPreview.style = 'filter: ' + effect[0] + '(' + valueInput.toFixed(2) + effect[3] + ')';
+    photoPreviewImage.style = 'filter: ' + effect[0] + '(' + valueInput.toFixed(2) + effect[3] + ')';
   };
 
   var getEffectValue = function (percent) {
@@ -178,9 +177,9 @@
     hashTags.form.reset();
   };
 
-  var showMessage = function (classNameMessage) {
-    var messageTemplate = document.querySelector('#' + classNameMessage)
-      .content.querySelector('.' + classNameMessage)
+  var showMessage = function (messageClass) {
+    var messageTemplate = document.querySelector('#' + messageClass)
+      .content.querySelector('.' + messageClass)
       .cloneNode(true);
     mainContainer.appendChild(messageTemplate);
     messageTemplate.addEventListener('click', hideMessage);
