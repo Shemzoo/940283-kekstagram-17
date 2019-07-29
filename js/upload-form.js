@@ -89,7 +89,7 @@
     imageEffectDepth.style.width = percent + '%';
     var valuePercent = (effect[2] - effect[1]) / PHOTO_EFFECT_VOLUME_DEFAULT * percent;
     var valueInput = effect[1] + valuePercent;
-    imageEffectLevelValue.input.value = valueInput.toFixed(2);
+    imageEffectLevelValue.value = valueInput.toFixed(2);
     photoPreviewImage.style = 'filter: ' + effect[0] + '(' + valueInput.toFixed(2) + effect[3] + ')';
   };
 
