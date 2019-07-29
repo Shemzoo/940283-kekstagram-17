@@ -89,7 +89,7 @@
     imageEffectDepth.style.width = percent + '%';
     var valuePercent = (effect[2] - effect[1]) / PHOTO_EFFECT_VOLUME_DEFAULT * percent;
     var valueInput = effect[1] + valuePercent;
-    imageEffectLevelValue.textContent = valueInput.toFixed(2);
+    imageEffectLevelValue.input.value = valueInput.toFixed(2);
     photoPreviewImage.style = 'filter: ' + effect[0] + '(' + valueInput.toFixed(2) + effect[3] + ')';
   };
 
@@ -118,7 +118,12 @@
   window.utils.slider(imageEffectPin, imageEffectLine, getEffectValue);
 
   var addHashTagsValidation = function () {
-    var hashTagsData = hashTags.value.trim().split(/\s+/gi);
+    var hashTagsData = hashTags.value
+    .trim()
+    .split(/\s+/gi)
+    .map(function (hashTag) {
+      return hashTag.toLowerCase();
+    });
     var message = '';
 
     if (hashTagsData.length > HASHTAGS_MAX_AMOUNT) {
@@ -158,6 +163,7 @@
     } else if (hashTagsData[i].length > HASHTAG_MAX_LENGTH) {
       message = 'Максимальная длина одного хэш-тега 20 символов';
     }
+
     return message;
   };
 
@@ -177,9 +183,9 @@
     hashTags.form.reset();
   };
 
-  var showMessage = function (messageType) {
-    var messageTemplate = document.querySelector('#' + messageType)
-      .content.querySelector('.' + messageType)
+  var showMessage = function (messageClass) {
+    var messageTemplate = document.querySelector('#' + messageClass)
+      .content.querySelector('.' + messageClass)
       .cloneNode(true);
     mainContainer.appendChild(messageTemplate);
     messageTemplate.addEventListener('click', hideMessage);
