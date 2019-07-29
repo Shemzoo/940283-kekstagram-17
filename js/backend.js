@@ -4,7 +4,7 @@
   var TIMEOUT_10_SEC = 10000;
   var RESPONSE_STATUS = 200;
 
-  var getData = {
+  var Data = {
     load: function (onSuccess, onError) {
       var URL = 'https://js.dump.academy/kekstagram/data';
       createRequest('GET', URL, onSuccess, onError);
@@ -43,5 +43,5 @@
     xhr.send(data);
   };
 
-  window.getData = getData;
+  window.Data = Data;
 })();

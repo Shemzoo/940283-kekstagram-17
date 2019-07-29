@@ -4,6 +4,7 @@
   var pictureTemplate = document.querySelector('#picture').content.querySelector('.picture');
   var picturesContainer = document.querySelector('.pictures');
 
+
   var Picture = function (data) {
     this.data = data;
     this.url = data.url;

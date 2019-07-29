@@ -177,9 +177,9 @@
     hashTags.form.reset();
   };
 
-  var showMessage = function (messageClass) {
-    var messageTemplate = document.querySelector('#' + messageClass)
-      .content.querySelector('.' + messageClass)
+  var showMessage = function (messageType) {
+    var messageTemplate = document.querySelector('#' + messageType)
+      .content.querySelector('.' + messageType)
       .cloneNode(true);
     mainContainer.appendChild(messageTemplate);
     messageTemplate.addEventListener('click', hideMessage);
@@ -201,7 +201,7 @@
   form.addEventListener('submit', function (evt) {
     evt.preventDefault();
     var data = new FormData(form);
-    window.getData.save(data, onSuccess, onError);
+    window.Data.save(data, onSuccess, onError);
   });
 
 })();
